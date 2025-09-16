@@ -1,151 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lateumn — Divine Chamber</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --ink: #e9e6f5;
-      --paper: #0b0b0f;
-      --violet: #5e2bd9;
-      --ether: #69d0e8;
-      --gilt: #c9a35a;
-      --line: rgba(255,255,255,.18);
-      --glass: rgba(255,255,255,.04);
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
     body {
-      margin: 0; color: var(--ink); background: var(--paper);
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      overflow-x: hidden;
-      background:
-        radial-gradient(1200px 900px at 70% 15%, rgba(94,43,217,.12), transparent 55%),
-        radial-gradient(900px 700px at 15% 85%, rgba(105,208,232,.08), transparent 60%),
-        radial-gradient(1600px 1000px at 50% 120%, rgba(0,0,0,.6), rgba(0,0,0,.9)),
-        linear-gradient(180deg, #0c0c12, #05050a);
-    }
-
-    canvas#stars { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; opacity: .7; }
-
-    .frame { position: fixed; inset: 24px; z-index: 1; pointer-events: none; }
-    .frame:before, .frame:after { content: ""; position: absolute; width: 140px; height: 140px; border: 1px solid rgba(201,163,90,.55); filter: drop-shadow(0 0 6px rgba(201,163,90,.25)); }
-    .frame:before { left: -6px; top: -6px; border-right: none; border-bottom: none; border-radius: 16px 0 0 0; }
-    .frame:after  { right: -6px; bottom: -6px; border-left: none; border-top: none; border-radius: 0 0 16px 0; }
-    .rule { position: absolute; left: 10%; right: 10%; top: 90px; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,163,90,.5), transparent); }
-
-    main.wrap { position: relative; z-index: 2; min-height: 100dvh; display: grid; place-items: center; padding: 6vmin; }
-
-    .card {
-      width: clamp(360px, 70vw, 980px);
-      padding: clamp(28px, 6vmin, 60px);
-      border-radius: 18px;
-      background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.02));
-      border: 1px solid var(--line);
-      box-shadow: 0 28px 80px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05);
-      backdrop-filter: blur(10px) saturate(115%);
-      -webkit-backdrop-filter: blur(10px) saturate(115%);
+      margin: 0;
+      font-family: 'Garamond', serif;
+      background: radial-gradient(circle at center, #0b0b0f, #050507);
+      color: #e5e5e5;
       text-align: center;
-      position: relative;
+      overflow-x: hidden;
     }
-
-    .crest { width: 76px; height: 76px; margin: 0 auto 14px auto; position: relative; }
-    .crest svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 0 8px rgba(201,163,90,.18)); }
-
-    .badge {
-      display: inline-block; padding: 6px 10px; border: 1px solid rgba(201,163,90,.6);
-      color: var(--ink); letter-spacing: .16em; text-transform: uppercase; font-size: 11px; opacity: .9;
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+    header {
+      padding: 60px 20px 20px;
     }
-
-    h1.title {
-      font-family: Cinzel, serif; font-weight: 700; letter-spacing: .10em; line-height: 1.04;
-      font-size: clamp(44px, 7.6vw, 96px); margin: 10px 0 6px 0;
-      background: linear-gradient(90deg, var(--ink), #dcd7ff 40%, #b7a7ff 60%, var(--ink));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+    h1 {
+      font-size: 3.5em;
+      color: #d7c378;
+      text-shadow: 0 0 15px rgba(215,195,120,0.5);
+      margin-bottom: 10px;
     }
-
-    p.subtitle { margin: 0 auto 20px; max-width: 60ch; font-weight: 300; opacity: .92; font-size: clamp(16px, 2.2vw, 18px); }
-
-    .row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
-    .cta {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      text-decoration: none; font-weight: 600; letter-spacing: .02em;
-      padding: 12px 20px; border-radius: 8px; color: var(--ink);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      border: 1px solid rgba(201,163,90,.6);
-      box-shadow: 0 10px 34px rgba(0,0,0,.4);
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    p.subtitle {
+      font-size: 1.2em;
+      color: #aaa;
+      margin-bottom: 30px;
     }
-    .cta:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(0,0,0,.55); border-color: rgba(201,163,90,.9); }
-
-    .plaque { margin-top: 22px; display: inline-flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.25); font-size: 12px; opacity: .95;
+    .links a {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 24px;
+      background: #2b2340;
+      color: #e5e5e5;
+      text-decoration: none;
+      border: 1px solid #d7c378;
+      border-radius: 6px;
+      transition: background 0.3s;
     }
-    .sword { width: 14px; height: 14px; display: inline-block; background: linear-gradient(180deg, var(--gilt), #b68a3d); mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l2 2-2 2v10l-1 1v3h2v-3l-1-1V6l-2-2 2-2zm-5 9l2 2-5 5-2 1 1-2 4-4z"/></svg>') center/contain no-repeat; }
-
-    .player { margin-top: 28px; border: 1px solid rgba(201,163,90,.4); border-radius: 12px; overflow: hidden; box-shadow: 0 12px 36px rgba(0,0,0,.6); }
-    .player iframe { display: block; width: 100%; height: 380px; }
-
-    footer { position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 16px; display: flex; justify-content: center; z-index: 2; }
-    .links { display: flex; gap: 14px; backdrop-filter: blur(6px); background: rgba(0,0,0,.25); border: 1px solid rgba(255,255,255,.12); padding: 6px 12px; border-radius: 999px; }
-    .links a { color: rgba(255,255,255,.92); text-decoration: none; font-size: 13px; }
-    .links a:hover { text-decoration: underline; }
-
-    @media (max-width: 420px) { footer { position: static; margin-top: 24px; } .frame { display: none; } }
+    .links a:hover {
+      background: #3c315a;
+    }
+    .player {
+      margin: 50px auto;
+      max-width: 800px;
+      border: 2px solid #d7c378;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(215,195,120,0.3);
+    }
+    .intro {
+      max-width: 800px;
+      margin: 60px auto;
+      text-align: left;
+      background: rgba(20, 18, 26, 0.85);
+      padding: 30px;
+      border-left: 4px solid #d7c378;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    .intro h2 {
+      color: #d7c378;
+      margin-bottom: 15px;
+    }
+    footer {
+      margin: 60px 0 20px;
+      font-size: 0.9em;
+      color: #777;
+    }
   </style>
 </head>
 <body>
-  <canvas id="stars" aria-hidden="true"></canvas>
-  <div class="frame" aria-hidden="true"><span class="rule"></span></div>
+  <header>
+    <h1>Lateumn</h1>
+    <p class="subtitle">Welcome to the Divine Chamber — let the music guide you.</p>
+    <div class="links">
+      <a href="https://open.spotify.com/artist/7v3HCNPQjKrbIQwZu96zGk?si=xKP8JBBKSrqbauBDk5zWMg" target="_blank">Spotify</a>
+      <a href="https://www.youtube.com/@lateumn" target="_blank">YouTube</a>
+      <a href="https://soundcloud.com/lateumn" target="_blank">SoundCloud</a>
+    </div>
+  </header>
 
-  <main class="wrap">
-    <section class="card" role="group" aria-label="Lateumn landing">
-      <div class="crest" aria-hidden="true">
-        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="32" cy="32" r="28" stroke="rgba(201,163,90,.7)" stroke-width="2" />
-          <path d="M24 18h16" stroke="rgba(201,163,90,.7)" stroke-width="2"/>
-          <path d="M21 22h10c0 5-3 8-5 9v4h-4v-4c-2-1-5-4-5-9h4z" stroke="rgba(201,163,90,.9)" stroke-width="1.5" fill="rgba(201,163,90,.15)"/>
-          <path d="M42 14l4 4-8 8v16l-2 2v6h4v-6l-2-2V26l8-8-4-4z" fill="rgba(201,163,90,.85)"/>
-        </svg>
-      </div>
-      <span class="badge">Divine Chamber — Registry</span>
-      <h1 class="title" aria-label="Lateumn">Lateumn</h1>
-      <p class="subtitle">Music for the room that thinks. Brass edges, quiet law, violet air. Enter sober, leave altered.</p>
-      <div class="row" role="navigation" aria-label="primary actions">
-        <a class="cta" href="https://open.spotify.com/artist/7v3HCNPQjKrbIQwZu96zGk?si=xKP8JBBKSrqbauBDk5zWMg" target="_blank" rel="noopener">Spotify</a>
-        <a class="cta" href="https://www.youtube.com/@lateumn" target="_blank" rel="noopener">YouTube</a>
-        <a class="cta" href="https://soundcloud.com/lateumn" target="_blank" rel="noopener">SoundCloud</a>
-      </div>
-      <div class="player">
-        <iframe src="https://www.youtube.com/embed/videoseries?list=PLJc6b3n0yDh2jsW-vxtJh_0SZNqAqcdDB" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <p class="plaque"><span class="sword" aria-hidden="true"></span> Vera virtus in tenebris floret</p>
-    </section>
-  </main>
+  <div class="player">
+    <iframe width="100%" height="380" 
+      src="https://www.youtube.com/embed/videoseries?list=PLJc6b3n0yDh2jsW-vxtJh_0SZNqAqcdDB" 
+      frameborder="0" 
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <section class="intro">
+    <h2>Divine Chamber — Album Introduction</h2>
+    <p>A room that is neither fully in the world nor outside of it. There’s always dust in the corners. The furniture is mismatched: a velvet armchair here, a cracked writing desk there, a coatrack that has held a gun, a veil, and a crown. This is a bureau of gods, a stage for neurosis, a war room for souls.</p>
+    <p>The light flickers inconsistently, not because of faulty wiring (there is no wiring), but because the room adjusts itself to the emotional voltage of its inhabitants. The more charged the argument, the more flickering, more heat, more shadow. One could swear the walls bend inward when someone feels shame. Or pride.</p>
+    <p>At the center is a long, battered table. Its legs have been repaired three times by Logos, who muttered about “structural coherence” while hammering. He did it without complaint, but the sweat on his shirt revealed it wasn’t just for the wood.</p>
+  </section>
 
   <footer>
-    <nav class="links" aria-label="social links">
-      <a href="https://open.spotify.com/artist/7v3HCNPQjKrbIQwZu96zGk?si=xKP8JBBKSrqbauBDk5zWMg" target="_blank" aria-label="Spotify">Spotify</a>
-      <a href="https://www.youtube.com/@lateumn" target="_blank" aria-label="YouTube">YouTube</a>
-      <a href="https://soundcloud.com/lateumn" target="_blank" aria-label="SoundCloud">SoundCloud</a>
-      <a href="mailto:contact@lateumn.art" aria-label="Email">Email</a>
-    </nav>
+    <p>© Lateumn — Divine Chamber</p>
   </footer>
-
-  <script>
-    (function(){
-      const c = document.getElementById('stars');
-      const ctx = c.getContext('2d');
-      let W, H, stars = [], COUNT = 160;
-      function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; stars = Array.from({length: COUNT}, () => ({x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.4+0.25, a: Math.random()*6.28, v: Math.random()*0.012+0.003})); }
-      function draw(){ ctx.clearRect(0,0,W,H); for(const s of stars){ s.a += s.v; const tw = (Math.sin(s.a)+1)/2; const g = ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*2); g.addColorStop(0, `rgba(255,255,255,${0.8*tw})`); g.addColorStop(1, `rgba(255,255,255,0)`); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(s.x,s.y,s.r*2,0,Math.PI*2); ctx.fill(); } requestAnimationFrame(draw); }
-      addEventListener('resize', resize); resize(); draw();
-    })();
-  </script>
 </body>
 </html>

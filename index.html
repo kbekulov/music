@@ -9,17 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #e9e6f5;           /* primary text */
-      --muted: #b9b6c8;         /* secondary text */
-      --bg0: #07070b;           /* deep night */
-      --bg1: #0c0c12;           /* twilight */
-      --gold: #d7c378;          /* antique gold */
-      --violet: #6b58ff;        /* noble violet */
-      --ether: #78e8ff;         /* ether blue */
+      --ink: #e9e6f5;
+      --muted: #b9b6c8;
+      --bg0: #07070b;
+      --bg1: #0c0c12;
+      --gold: #d7c378;
+      --violet: #6b58ff;
+      --ether: #78e8ff;
       --line: rgba(255,255,255,.16);
       --glass: rgba(255,255,255,.06);
       --blur: 10px;
-      --ring-size: 860px;       /* magic circle size */
+      --ring-size: 860px;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -34,13 +34,11 @@
         linear-gradient(180deg, var(--bg1), var(--bg0));
       overflow-x: hidden;
     }
-    /* Film grain */
     body::after { content: ""; position: fixed; inset: 0; pointer-events: none;
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.03"/></svg>');
       mix-blend-mode: soft-light; z-index: 0;
     }
 
-    /* LAYERS */
     canvas#stars { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; opacity: .75; }
     .sigil { position: fixed; left: 50%; top: 44%; width: var(--ring-size); height: var(--ring-size); transform: translate(-50%,-50%);
       opacity: .35; z-index: 1; pointer-events: none; filter: drop-shadow(0 0 32px rgba(215,195,120,.18)); }
@@ -49,7 +47,6 @@
         radial-gradient(45vmax 45vmax at 70% 20%, rgba(107,88,255,.06), transparent 60%);
       filter: blur(40px) saturate(120%); opacity: .6; z-index: 0; pointer-events: none; }
 
-    /* HERO */
     header.hero { position: relative; z-index: 2; min-height: 86dvh; display: grid; place-items: center; padding: 7vmin 4vmin 2vmin; text-align: center; }
     .logo {
       font-family: Cinzel, serif; font-weight: 700; letter-spacing: .14em; line-height: 1.04;
@@ -58,11 +55,6 @@
       -webkit-background-clip: text; background-clip: text; color: transparent;
       position: relative;
     }
-    /* title shine */
-    .logo::after { content: ""; position: absolute; inset: 0; background:
-        linear-gradient(75deg, transparent 20%, rgba(255,255,255,.8) 50%, transparent 80%);
-      mix-blend-mode: screen; transform: translateX(-120%); filter: blur(6px); animation: shine 7s ease-in-out infinite; }
-    @keyframes shine { 0% { transform: translateX(-120%); } 40% { transform: translateX(120%);} 100% { transform: translateX(120%);} }
 
     .tag { display: inline-block; padding: 6px 12px; border: 1px solid rgba(215,195,120,.7); color: var(--ink);
       letter-spacing: .18em; text-transform: uppercase; font-size: 11px; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); }
@@ -80,26 +72,22 @@
     .scroll-cue::after { content: "\2193"; display: block; font-size: 18px; animation: bob 1.8s ease-in-out infinite; }
     @keyframes bob { 0%,100% { transform: translateY(0);} 50% { transform: translateY(6px);} }
 
-    /* PLAYER */
     section.player { position: relative; z-index: 2; display: grid; place-items: center; padding: 24px 4vmin 0; }
     .frame { width: min(960px, 90vw); border: 1px solid rgba(215,195,120,.6); border-radius: 16px; overflow: hidden; box-shadow: 0 16px 50px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.06); background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.02)); }
     .frame header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,.08); font-size: 12px; color: var(--muted); letter-spacing: .14em; text-transform: uppercase; }
     .frame iframe { display: block; width: 100%; height: 420px; }
 
-    /* ORNAMENT DIVIDER */
     .divider { width: min(960px, 90vw); margin: 26px auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(215,195,120,.6), transparent); position: relative; }
     .divider::before, .divider::after { content: ""; position: absolute; width: 10px; height: 10px; border: 1px solid rgba(215,195,120,.7); border-radius: 2px; top: -5px; }
     .divider::before { left: calc(50% - 24px); }
     .divider::after  { left: calc(50% + 14px); }
 
-    /* LORE */
     section.lore { position: relative; z-index: 2; width: min(960px, 90vw); margin: 14px auto 70px; background: rgba(12,12,18,.72); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 14px; box-shadow: 0 10px 40px rgba(0,0,0,.5); }
     .lore-inner { padding: clamp(18px, 4vmin, 36px); }
     .lore h2 { font-family: Cinzel, serif; letter-spacing: .12em; text-transform: uppercase; font-size: 14px; color: var(--gold); margin: 0 0 12px 0; }
     .lore p { font-family: "Cormorant Garamond", serif; font-size: clamp(18px, 2.2vw, 20px); line-height: 1.6; color: var(--ink); margin: 0 0 14px 0; }
     .lore p:first-of-type::first-letter { float: left; font-family: Cinzel, serif; font-size: 3.2em; line-height: .85; padding: .06em .18em .06em 0; color: var(--gold); text-shadow: 0 0 14px rgba(215,195,120,.25); }
 
-    /* FOOTER */
     footer { position: relative; z-index: 2; padding: 40px 14px 24px; text-align: center; color: var(--muted); font-size: 13px; }
     .social { display: inline-flex; gap: 12px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; backdrop-filter: blur(var(--blur)); background: rgba(0,0,0,.25); margin-bottom: 10px; }
     .social a { color: var(--ink); text-decoration: none; font-size: 13px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(215,195,120,.35); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); }
@@ -112,11 +100,9 @@
   </style>
 </head>
 <body>
-  <!-- BACKGROUND LAYERS -->
   <canvas id="stars" aria-hidden="true"></canvas>
   <div class="fog" aria-hidden="true"></div>
 
-  <!-- MAGIC CIRCLE (Type‑Moon vibe) -->
   <svg class="sigil" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <radialGradient id="rg" cx="50%" cy="50%" r="50%">
@@ -125,32 +111,10 @@
         <stop offset="100%" stop-color="rgba(215,195,120,.0)" />
       </radialGradient>
     </defs>
-    <!-- outer ring -->
     <circle cx="50" cy="50" r="46" fill="none" stroke="url(#rg)" stroke-width=".6" />
-    <!-- inner ring with ticks -->
-    <g id="ticks">
-      <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(215,195,120,.35)" stroke-width=".3" />
-      <g>
-        <!-- 24 ticks -->
-        <g>
-          <line x1="50" y1="14" x2="50" y2="16" stroke="rgba(215,195,120,.5)" stroke-width=".3" />
-        </g>
-      </g>
-    </g>
-    <!-- simple runes as textPath along ring -->
-    <defs>
-      <path id="ring" d="M50 14 a36 36 0 1 1 0 72 a36 36 0 1 1 0 -72" />
-    </defs>
-    <text font-size="3" fill="rgba(215,195,120,.5)" letter-spacing="2">
-      <textPath href="#ring">VERA·VIRTUS·IN·TENEBRIS·FLORET·DIVINE·CHAMBER·REGISTRY·LATEUMN·SIGIL·NOCTIS·AURUM·</textPath>
-    </text>
-    <!-- rotating triangle -->
-    <g id="tri" transform="translate(50 50)">
-      <polygon points="0,-18 15,10 -15,10" fill="none" stroke="rgba(120,232,255,.45)" stroke-width=".4" />
-    </g>
+    <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(215,195,120,.35)" stroke-width=".3" />
   </svg>
 
-  <!-- HERO -->
   <header class="hero">
     <span class="tag">Divine Chamber — Registry</span>
     <h1 class="logo">Lateumn</h1>
@@ -163,7 +127,6 @@
     <div class="scroll-cue">scroll</div>
   </header>
 
-  <!-- PLAYER SECTION -->
   <section class="player" aria-label="Playlist">
     <div class="frame">
       <header>
@@ -176,7 +139,6 @@
 
   <div class="divider" aria-hidden="true"></div>
 
-  <!-- LORE SECTION -->
   <section class="lore" aria-label="Divine Chamber — Album Introduction">
     <div class="lore-inner">
       <h2>Divine Chamber — Album Introduction</h2>
@@ -186,7 +148,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="social" aria-label="social links">
       <a href="https://open.spotify.com/artist/7v3HCNPQjKrbIQwZu96zGk?si=xKP8JBBKSrqbauBDk5zWMg" target="_blank" aria-label="Spotify">Spotify</a>
@@ -198,24 +159,9 @@
   </footer>
 
   <script>
-    // STARFIELD — light and efficient
     (function(){
       const c = document.getElementById('stars');
       const ctx = c.getContext('2d');
       let W, H, stars = [], COUNT = 200;
       function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; stars = Array.from({length: COUNT}, () => ({x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.6+0.25, a: Math.random()*6.283, v: Math.random()*0.012+0.003})); }
-      function draw(){ ctx.clearRect(0,0,W,H); for(const s of stars){ s.a += s.v; const tw = (Math.sin(s.a)+1)/2; const g = ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*2); g.addColorStop(0, `rgba(255,255,255,${0.85*tw})`); g.addColorStop(1, `rgba(255,255,255,0)`); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(s.x,s.y,s.r*2,0,Math.PI*2); ctx.fill(); } requestAnimationFrame(draw); }
-      addEventListener('resize', resize); resize(); draw();
-    })();
-
-    // SIGIL subtle rotation + mouse parallax
-    (function(){
-      const sigil = document.querySelector('.sigil');
-      let t = 0, mx = 0, my = 0; const lerp = (a,b,n)=>a+(b-a)*n;
-      window.addEventListener('mousemove', (e)=>{ const x = (e.clientX/innerWidth - .5); const y = (e.clientY/innerHeight - .5); mx = x*12; my = y*12; });
-      function tick(){ t += 0.002; const r = `rotate(${t*12}deg)`; const p = `translate(calc(-50% + ${mx}px), calc(-50% + ${my}px))`; sigil.style.transform = `${p} ${r}`; requestAnimationFrame(tick); }
-      tick();
-    })();
-  </script>
-</body>
-</html>
+      function draw(){ ctx.clearRect(0,0,W,H); for(const s of stars){ s.a += s.v; const tw = (Math.sin(s.a)+1)/2; const g = ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*2); g.addColorStop(0, `rgba(255,255,255,${0.85*tw})`); g.addColorStop(1, `rgba(255,255,255,0)`); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(s.x,s.y,s.r*2,0,Math.PI*2); ctx.fill

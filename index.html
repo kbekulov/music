@@ -86,9 +86,7 @@
       background: linear-gradient(90deg, var(--ink), #efe9ff 40%, #bdb0ff 60%, var(--ink));
       -webkit-background-clip: text; background-clip: text; color: transparent; position: relative;
     }
-    .logo::after{ content:""; position:absolute; inset:0; background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,.8) 50%, transparent 60%); mix-blend-mode: screen; filter: blur(1px); transform: translateX(-120%); animation: glint 7s ease-in-out 1.4s infinite; }
-    @keyframes glint { 0% { transform: translateX(-120%);} 16% { transform: translateX(120%);} 100% { transform: translateX(120%);} }
-
+    
     .tag { display: inline-block; padding: 6px 12px; border: 1px solid color-mix(in oklab, var(--gold) 70%, transparent); color: var(--ink);
       letter-spacing: .18em; text-transform: uppercase; font-size: 11px; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); }
     .subtitle { font-family: "Cormorant Garamond", serif; font-weight: 400; color: var(--muted); max-width: 66ch; margin: 14px auto 24px; font-size: clamp(18px, 2.2vw, 22px); line-height: 1.45; }

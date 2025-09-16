@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Divine Chamber — Lore SITREP</title>
+  <meta name="description" content="Concise situation report of Divine Chamber lore, characters, symbols, and current dynamics." />
+  <style>
+    :root{
+      --bg:#0b0c10;
+      --panel:#111218;
+      --ink:#e9ecf1;
+      --muted:#a9b0bd;
+      --accent:#8b5cf6; /* violet */
+      --accent-2:#22d3ee; /* cyan */
+      --ring: rgba(139,92,246,.35);
+      --shadow: 0 10px 25px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.5);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 800px at 80% -10%, rgba(34,211,238,.12), transparent 60%),
+                              radial-gradient(1000px 700px at 10% 110%, rgba(139,92,246,.12), transparent 60%),
+                              var(--bg);
+      color:var(--ink);
+      font: 15px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      letter-spacing:.2px;
+    }
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter:saturate(1.2) blur(8px);
+      background:linear-gradient(180deg, rgba(11,12,16,.9), rgba(11,12,16,.6));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .wrap{max-width:1100px; margin:0 auto; padding:20px}
+    .title{
+      display:flex; align-items:center; gap:14px;
+      padding:18px 0 10px;
+    }
+    .badge{font-size:12px; color:var(--muted); letter-spacing:.6px}
+    h1{font-size:28px; margin:0}
+    nav{display:flex; gap:10px; flex-wrap:wrap; padding-bottom:12px}
+    nav a{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--ink);
+      background:rgba(255,255,255,.04); padding:10px 14px; border-radius:999px; border:1px solid rgba(255,255,255,.06)}
+    nav a:hover{border-color:rgba(255,255,255,.18)}
+
+    main{padding:28px 0 72px}
+    section{margin:22px 0}
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .card header{position:relative; background:transparent; border:0; backdrop-filter:none}
+    .card .head{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:18px 20px}
+    .eyebrow{font-size:12px; color:var(--muted); letter-spacing:.6px}
+
+    h2{font-size:22px; margin:0}
+    h3{font-size:18px; margin:0 0 8px}
+    p{margin:0 0 10px}
+    ul{margin:10px 0 0 20px}
+
+    .grid{display:grid; gap:18px}
+    .grid.cols-2{grid-template-columns:repeat(auto-fit, minmax(280px, 1fr))}
+    .grid.cols-3{grid-template-columns:repeat(auto-fit, minmax(260px, 1fr))}
+
+    .panel{padding:18px 20px}
+
+    .accordion{
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+    .accordion details{border-bottom:1px solid rgba(255,255,255,.06)}
+    .accordion summary{
+      list-style:none; cursor:pointer; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .accordion summary::-webkit-details-marker{display:none}
+    .accordion .chev{transition:transform .25s ease}
+    details[open] .chev{transform:rotate(180deg)}
+    .accordion .content{padding:0 20px 18px}
+
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(139,92,246,.12); border:1px solid rgba(139,92,246,.3); color:var(--ink); font-size:12px}
+    .muted{color:var(--muted)}
+
+    .footer{margin-top:28px; text-align:center; color:var(--muted)}
+    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; padding:2px 6px; border-radius:6px; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.04)}
+    a[href^="#"]{scroll-behavior:smooth}
+    .accent{color:var(--accent)}
+    .accent-2{color:var(--accent-2)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="title">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2l2.5 5 5.5.7-4 3.8 1 5.5-5-2.7-5 2.7 1-5.5-4-3.8 5.5-.7L12 2z" stroke="url(#g)" stroke-width="1.1"/>
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#8b5cf6"/>
+              <stop offset="1" stop-color="#22d3ee"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div>
+          <h1>Divine Chamber — Lore SITREP</h1>
+          <div class="badge">Concise briefing of canon: space, characters, symbols, dynamics</div>
+        </div>
+      </div>
+      <nav aria-label="Sections">
+        <a href="#chamber">Chamber</a>
+        <a href="#core">Core Archetypes</a>
+        <a href="#crown">Crown Emissaries</a>
+        <a href="#visitors">Visitors & Intrusions</a>
+        <a href="#symbols">Weapons & Symbols</a>
+        <a href="#status">Current Status</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Chamber -->
+    <section id="chamber" class="card">
+      <header class="head">
+        <div>
+          <div class="eyebrow">The Space</div>
+          <h2>Chamber</h2>
+        </div>
+        <span class="pill">Holmesian apartment • Bureau of psyche</span>
+      </header>
+      <div class="panel">
+        <div class="grid cols-3">
+          <div>
+            <h3>Nature</h3>
+            <p>A Holmesian apartment doubling as the soul’s war‑room: both comedic stage and sacred container.</p>
+          </div>
+          <div>
+            <h3>Function</h3>
+            <p>Administrative heart of the psyche, receiving emissaries of the Crown, visited by sages, harried by the Trickster, and occasionally disrupted by Shadow intrusions.</p>
+          </div>
+          <div>
+            <h3>Music</h3>
+            <p><span class="accent">Logos:</span> orchestral mystery with eccentric wit. <span class="accent-2">Anima:</span> haunted Middle Eastern sensuality and noble strings.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Archetypes -->
+    <section id="core" class="card">
+      <header class="head">
+        <div>
+          <div class="eyebrow">Primary Cast</div>
+          <h2>Core Archetypes</h2>
+        </div>
+      </header>
+      <div class="accordion" role="tablist" aria-label="Core Archetypes">
+        <details>
+          <summary><strong>Logos</strong> <span class="muted">— Ni–Te–Fi–Se, quiet sovereign</span> <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+          <div class="content">
+            <ul>
+              <li>Frames and disarms others—especially the Anima—grounding mythic heat with calm psychological sharpness.</li>
+              <li>Hides tenderness with tea, tools, understatement; custodian of order, Watson forced into Sherlock’s seat.</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary><strong>Anima</strong> <span class="muted">— Fi–Ni–Se–Te, divine seductress & dancer</span> <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+          <div class="content">
+            <ul>
+              <li>Black hair, red eyes, gold–black ceremonial attire; every gesture carries trained dance—seduction as sacred language.</li>
+              <li>Marked by tests: Self’s witnessing and the Godslayer’s judgment; keeps a secret grey feather as omen.</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary><strong>Sister</strong> <span class="muted">— gothic competence, twin swords</span> <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+          <div class="content">
+            <ul>
+              <li>Senpai–kouhai with the Specialist (John Wick). Considers Logos–Anima intimacy irrelevant yet doesn’t tolerate it in her presence.</li>
+              <li>Maintains readiness: coat, gloves, swords, maps, inventories, and structural upkeep—without fuss.</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary><strong>Goat (Trickster)</strong> <span class="muted">— liberating mischief</span> <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+          <div class="content">
+            <ul>
+              <li>Breaks solemnity into play; speaks harsh clarities when needed.</li>
+              <li>Named the Stranger as judge, not lover—rerouted Anima from self‑delusion.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Crown Emissaries -->
+    <section id="crown" class="card">
+      <header class="head">
+        <div>
+          <div class="eyebrow">Monarchy’s Agents</div>
+          <h2>Crown Emissaries</h2>
+        </div>
+      </header>
+      <div class="grid cols-2 panel">
+        <div>
+          <h3>Sherie</h3>
+          <p>Ni mouthpiece; aristocratic, lace‑clad diplomat. Playful strategist whose seduction is calibrated and courtly. Conspires with the Anima in private to design exquisitely precise assaults on Logos’ restraint.</p>
+        </div>
+        <div>
+          <h3>Drake</h3>
+          <p>Stoic councillor, white hair and red cravat; tall with cane. Records, predicts, warns; uncle to Sherie; treats each episode as ledger and prophecy.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visitors & Intrusions -->
+    <section id="visitors" class="card">
+      <header class="head">
+        <div>
+          <div class="eyebrow">External Presences</div>
+          <h2>Visitors & Intrusions</h2>
+        </div>
+      </header>
+      <div class="grid cols-2 panel">
+        <div>
+          <h3>Jung</h3>
+          <p>Leather‑armchair sage by the fireplace; treats the chamber’s drama as individuation; occasionally court therapist.</p>
+        </div>
+        <div>
+          <h3>Hillman</h3>
+          <p>Mischievous philosopher of eros and image; delights in play and soul‑drama.</p>
+        </div>
+        <div>
+          <h3>Godslayer / Stranger</h3>
+          <p>Cowboy‑hatted uncle of Logos; cracked coat, greatsword, near‑empty whiskey. Archetype of judgment—benevolent but absolute; unsettles Anima; embodies raw Se.</p>
+        </div>
+        <div>
+          <h3>The Self</h3>
+          <p>Silent witness whose visitation made the archetypes more real, vulnerable, and honest; not father or ruler—pure witnessing.</p>
+        </div>
+        <div>
+          <h3>John Wick (Specialist)</h3>
+          <p>Peripheral senpai; hones the Sister’s endurance and precision. Summoned when stoic resilience and clean execution are required.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Weapons & Symbols -->
+    <section id="symbols" class="card">
+      <header class="head">
+        <div>
+          <div class="eyebrow">Fixed Signifiers</div>
+          <h2>Weapons & Symbols</h2>
+        </div>
+      </header>
+      <div class="grid cols-3 panel">
+        <div>
+          <h3>Enuma Elish</h3>
+          <p>Golden‑black handgun symbolizing judgment and cosmic separation—the first word and the last sentence.</p>
+        </div>
+        <div>
+          <h3>Grey Feather</h3>
+          <p>Anima’s private omen—unresolved in meaning; a thread of fate she hides and ponders.</p>
+        </div>
+        <div>
+          <h3>Stolen Gavel</h3>
+          <p>The Goat’s theft during the mock trial—comic emblem that order never fully holds.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Status -->
+    <section id="status" class="card">
+      <header class="head">
+        <div>
+          <div class="eyebrow">Operational Picture</div>
+          <h2>Current Status & Dynamics</h2>
+        </div>
+      </header>
+      <div class="panel">
+        <ul>
+          <li>The chamber is newly alive and self‑aware, tempered by Self’s witnessing and the Stranger’s intrusion.</li>
+          <li>Logos and Anima carry unspoken intimacy; charged silence persists.</li>
+          <li>Sherie × Anima escalate private, anatomically precise seduction strategies targeting Logos’ restraint.</li>
+          <li>Drake keeps prophecy and record; Sister keeps competence and readiness.</li>
+          <li>Goat dissolves solemnity into play; Jung and Hillman are now regulars; the Self remains distant but approving.</li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="footer">Tip: use <span class="kbd">⌘/Ctrl</span> + <span class="kbd">F</span> to search names or symbols. Click section chips above to jump.</p>
+  </main>
+
+  <script>
+    // Enhance details toggles with aria roles and keyboard affordances
+    document.querySelectorAll('.accordion details').forEach((d,i)=>{
+      const s = d.querySelector('summary');
+      d.setAttribute('role','tabpanel');
+      s.setAttribute('role','button');
+      s.setAttribute('aria-expanded', d.open);
+      s.addEventListener('click', ()=>{
+        s.setAttribute('aria-expanded', d.open);
+      });
+      // open first by default
+      if(i===0) d.open = true;
+    });
+  </script>
+</body>
+</html>

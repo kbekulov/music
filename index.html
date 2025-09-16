@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="top">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lateumn — Divine Chamber</title>
+  <meta name="description" content="The official Lateumn landing — Divine Chamber playlist, links, and album introduction." />
+  <meta property="og:title" content="Lateumn — Divine Chamber" />
+  <meta property="og:description" content="Austere, mystical, Type‑Moon‑esque landing for Lateumn." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b0b0f" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --ink: #e9e6f5;
@@ -21,15 +28,19 @@
       --blur: 10px;
       --ring-size: 860px;
     }
+    /* Tea/Beer palette modes */
+    .tea { --violet: #6073ff; --ether: #7fe0ff; --gold: #ccb879; }
+    .beer { --violet: #7a52ff; --ether: #66c9ff; --gold: #c99a54; --bg0:#09090c; --bg1:#0e0e14; }
+
     * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    html, body { height: 100%; scroll-behavior: smooth; }
 
     body {
       margin: 0; color: var(--ink);
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       background:
-        radial-gradient(1200px 800px at 75% 15%, rgba(107,88,255,.10), transparent 55%),
-        radial-gradient(900px 700px at 20% 85%, rgba(120,232,255,.08), transparent 60%),
+        radial-gradient(1200px 800px at 75% 15%, color-mix(in oklab, var(--violet) 18%, transparent), transparent 55%),
+        radial-gradient(900px 700px at 20% 85%, color-mix(in oklab, var(--ether) 14%, transparent), transparent 60%),
         radial-gradient(1600px 1000px at 50% 120%, rgba(0,0,0,.6), rgba(0,0,0,.9)),
         linear-gradient(180deg, var(--bg1), var(--bg0));
       overflow-x: hidden;
@@ -39,70 +50,129 @@
       mix-blend-mode: soft-light; z-index: 0;
     }
 
+    /* Top nav */
+    .nav { position: fixed; z-index: 12; left: 0; right: 0; top: 0; display: flex; justify-content: center; }
+    .nav-inner { margin: 10px auto; padding: 8px 12px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--gold) 45%, transparent);
+      backdrop-filter: blur(10px); background: rgba(0,0,0,.35); display: flex; gap: 10px; align-items: center; }
+    .nav a, .nav button { color: var(--ink); text-decoration: none; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--gold) 30%, transparent); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); }
+    .nav a:hover, .nav button:hover { border-color: color-mix(in oklab, var(--gold) 75%, transparent); }
+    .nav button { cursor: pointer; }
+
+    /* Atmosphere */
     canvas#stars { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; opacity: .75; }
-    .sigil { position: fixed; left: 50%; top: 44%; width: var(--ring-size); height: var(--ring-size); transform: translate(-50%,-50%);
-      opacity: .35; z-index: 1; pointer-events: none; filter: drop-shadow(0 0 32px rgba(215,195,120,.18)); }
+    .lightshafts { position: fixed; inset: -10vmax; pointer-events: none; z-index: 1; opacity: .25; mix-blend-mode: screen;
+      background:
+        repeating-linear-gradient(115deg, rgba(255,255,255,.06), rgba(255,255,255,.06) 2px, transparent 2px, transparent 28px),
+        radial-gradient(60vmax 40vmax at 70% 20%, color-mix(in oklab, var(--ether) 12%, transparent), transparent 70%);
+      filter: blur(6px) saturate(120%);
+    }
     .fog { position: fixed; inset: -20vmax; background:
-        radial-gradient(40vmax 40vmax at 30% 70%, rgba(120,232,255,.05), transparent 60%),
-        radial-gradient(45vmax 45vmax at 70% 20%, rgba(107,88,255,.06), transparent 60%);
+        radial-gradient(40vmax 40vmax at 30% 70%, color-mix(in oklab, var(--ether) 10%, transparent), transparent 60%),
+        radial-gradient(45vmax 45vmax at 70% 20%, color-mix(in oklab, var(--violet) 10%, transparent), transparent 60%);
       filter: blur(40px) saturate(120%); opacity: .6; z-index: 0; pointer-events: none; }
 
-    header.hero { position: relative; z-index: 2; min-height: 86dvh; display: grid; place-items: center; padding: 7vmin 4vmin 2vmin; text-align: center; }
+    /* Sigils */
+    .sigil { position: fixed; left: 50%; top: 44%; width: var(--ring-size); height: var(--ring-size); transform: translate(-50%,-50%);
+      opacity: .38; z-index: 1; pointer-events: none; filter: drop-shadow(0 0 32px color-mix(in oklab, var(--gold) 18%, transparent)); }
+    .rune-ring { position: fixed; left: 50%; top: 44%; width: calc(var(--ring-size) * .82); height: calc(var(--ring-size) * .82);
+      transform: translate(-50%,-50%); z-index: 1; pointer-events: none; opacity: .35; animation: spin 140s linear infinite; }
+    .rune-ring.reverse { width: calc(var(--ring-size) * .56); height: calc(var(--ring-size) * .56); opacity: .28; animation-duration: 110s; animation-direction: reverse; }
+    @keyframes spin { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+    header.hero { position: relative; z-index: 2; min-height: 92dvh; display: grid; place-items: center; padding: 12vmin 4vmin 4vmin; text-align: center; }
     .logo {
       font-family: Cinzel, serif; font-weight: 700; letter-spacing: .14em; line-height: 1.04;
       font-size: clamp(44px, 7.2vw, 108px); margin: 0 0 10px 0;
       background: linear-gradient(90deg, var(--ink), #efe9ff 40%, #bdb0ff 60%, var(--ink));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-      position: relative;
+      -webkit-background-clip: text; background-clip: text; color: transparent; position: relative;
     }
+    .logo::after{ content:""; position:absolute; inset:0; background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,.8) 50%, transparent 60%); mix-blend-mode: screen; filter: blur(1px); transform: translateX(-120%); animation: glint 7s ease-in-out 1.4s infinite; }
+    @keyframes glint { 0% { transform: translateX(-120%);} 16% { transform: translateX(120%);} 100% { transform: translateX(120%);} }
 
-    .tag { display: inline-block; padding: 6px 12px; border: 1px solid rgba(215,195,120,.7); color: var(--ink);
+    .tag { display: inline-block; padding: 6px 12px; border: 1px solid color-mix(in oklab, var(--gold) 70%, transparent); color: var(--ink);
       letter-spacing: .18em; text-transform: uppercase; font-size: 11px; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); }
-
     .subtitle { font-family: "Cormorant Garamond", serif; font-weight: 400; color: var(--muted); max-width: 66ch; margin: 14px auto 24px; font-size: clamp(18px, 2.2vw, 22px); line-height: 1.45; }
 
     .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
     .cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; font-weight: 600; letter-spacing: .02em;
       padding: 12px 20px; border-radius: 10px; color: var(--ink); background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
-      border: 1px solid rgba(215,195,120,.7); box-shadow: 0 10px 34px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.04);
+      border: 1px solid color-mix(in oklab, var(--gold) 70%, transparent); box-shadow: 0 10px 34px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.04);
       transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
-    .cta:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(0,0,0,.55); border-color: rgba(215,195,120,.95); }
+    .cta:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(0,0,0,.55); border-color: color-mix(in oklab, var(--gold) 95%, transparent); }
 
     .scroll-cue { margin-top: 40px; opacity: .7; font-size: 12px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
-    .scroll-cue::after { content: "\2193"; display: block; font-size: 18px; animation: bob 1.8s ease-in-out infinite; }
+    .scroll-cue::after { content: "↓"; display: block; font-size: 18px; animation: bob 1.8s ease-in-out infinite; }
     @keyframes bob { 0%,100% { transform: translateY(0);} 50% { transform: translateY(6px);} }
 
     section.player { position: relative; z-index: 2; display: grid; place-items: center; padding: 24px 4vmin 0; }
-    .frame { width: min(960px, 90vw); border: 1px solid rgba(215,195,120,.6); border-radius: 16px; overflow: hidden; box-shadow: 0 16px 50px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.06); background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.02)); }
+    .frame { width: min(1000px, 90vw); border: 1px solid color-mix(in oklab, var(--gold) 65%, transparent); border-radius: 16px; overflow: hidden; box-shadow: 0 16px 50px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.06); background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.02)); }
     .frame header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,.08); font-size: 12px; color: var(--muted); letter-spacing: .14em; text-transform: uppercase; }
-    .frame iframe { display: block; width: 100%; height: 420px; }
+    .frame-controls { display: flex; gap: 10px; align-items: center; }
+    .chip { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); padding: 6px 10px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--gold) 55%, transparent); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); cursor: pointer; }
+    .frame iframe { display: block; width: 100%; height: 460px; }
 
-    .divider { width: min(960px, 90vw); margin: 26px auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(215,195,120,.6), transparent); position: relative; }
-    .divider::before, .divider::after { content: ""; position: absolute; width: 10px; height: 10px; border: 1px solid rgba(215,195,120,.7); border-radius: 2px; top: -5px; }
+    .divider { width: min(1000px, 90vw); margin: 26px auto; height: 1px; background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--gold) 70%, transparent), transparent); position: relative; }
+    .divider::before, .divider::after { content: ""; position: absolute; width: 10px; height: 10px; border: 1px solid color-mix(in oklab, var(--gold) 75%, transparent); border-radius: 2px; top: -5px; }
     .divider::before { left: calc(50% - 24px); }
     .divider::after  { left: calc(50% + 14px); }
 
-    section.lore { position: relative; z-index: 2; width: min(960px, 90vw); margin: 14px auto 70px; background: rgba(12,12,18,.72); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 14px; box-shadow: 0 10px 40px rgba(0,0,0,.5); }
+    section.lore { position: relative; z-index: 2; width: min(1000px, 90vw); margin: 14px auto 80px; background: rgba(12,12,18,.72); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 14px; box-shadow: 0 10px 40px rgba(0,0,0,.5); }
     .lore-inner { padding: clamp(18px, 4vmin, 36px); }
     .lore h2 { font-family: Cinzel, serif; letter-spacing: .12em; text-transform: uppercase; font-size: 14px; color: var(--gold); margin: 0 0 12px 0; }
     .lore p { font-family: "Cormorant Garamond", serif; font-size: clamp(18px, 2.2vw, 20px); line-height: 1.6; color: var(--ink); margin: 0 0 14px 0; }
-    .lore p:first-of-type::first-letter { float: left; font-family: Cinzel, serif; font-size: 3.2em; line-height: .85; padding: .06em .18em .06em 0; color: var(--gold); text-shadow: 0 0 14px rgba(215,195,120,.25); }
+    .lore p:first-of-type::first-letter { float: left; font-family: Cinzel, serif; font-size: 3.2em; line-height: .85; padding: .06em .18em .06em 0; color: var(--gold); text-shadow: 0 0 14px color-mix(in oklab, var(--gold) 25%, transparent); }
 
+    /* Floating feathers (subtle, Type‑Moon-ish) */
+    #feather-field { position: fixed; inset: 0; pointer-events: none; z-index: 2; }
+    .feather { position: absolute; width: 18px; height: 18px; opacity: .18; background: linear-gradient(180deg, var(--ether), var(--violet));
+      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23000"><path d="M20.24 4.26c-2.65-2.65-7.32-1.86-10.42 1.24-2.64 2.64-3.61 6.06-2.3 8.87l-4.2 4.2a1 1 0 1 0 1.41 1.41l4.18-4.17c2.82 1.33 6.25.35 8.9-2.29 3.1-3.1 3.88-7.77 1.23-10.42Zm-9.01 9.01-2.5-2.5c.43-1.36 1.22-2.73 2.39-3.9 2.46-2.46 5.83-3.19 7.6-1.42 1.77 1.77 1.04 5.14-1.42 7.6-1.17 1.17-2.54 1.96-3.9 2.39l-2.17-2.17Z"/></svg>') center / contain no-repeat; }
+    @keyframes drift {
+      0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: .22; }
+      50% { transform: translateY(50vh) translateX(-10vw) rotate(90deg); }
+      100% { transform: translateY(110vh) translateX(6vw) rotate(220deg); opacity: 0; }
+    }
+
+    /* Footer */
     footer { position: relative; z-index: 2; padding: 40px 14px 24px; text-align: center; color: var(--muted); font-size: 13px; }
     .social { display: inline-flex; gap: 12px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; backdrop-filter: blur(var(--blur)); background: rgba(0,0,0,.25); margin-bottom: 10px; }
-    .social a { color: var(--ink); text-decoration: none; font-size: 13px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(215,195,120,.35); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); }
-    .social a:hover { border-color: rgba(215,195,120,.8); }
+    .social a { color: var(--ink); text-decoration: none; font-size: 13px; padding: 6px 10px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--gold) 35%, transparent); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); }
+    .social a:hover { border-color: color-mix(in oklab, var(--gold) 80%, transparent); }
+
+    /* reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(10px); filter: blur(2px); transition: opacity .6s ease, transform .6s ease, filter .6s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+    /* Back-to-top */
+    .to-top { position: fixed; right: 14px; bottom: 14px; z-index: 12; opacity: .88; }
+    .to-top a { display: inline-block; padding: 8px 12px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--gold) 60%, transparent); text-decoration: none; color: var(--ink); background: rgba(0,0,0,.35); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
 
     @media (max-width: 480px) {
       .sigil { width: 120vmin; height: 120vmin; top: 46%; }
-      .frame iframe { height: 300px; }
+      .rune-ring { width: 100vmin; height: 100vmin; }
+      .rune-ring.reverse { width: 70vmin; height: 70vmin; }
+      .frame iframe { height: 320px; }
     }
   </style>
 </head>
-<body>
-  <canvas id="stars" aria-hidden="true"></canvas>
-  <div class="fog" aria-hidden="true"></div>
+<body class="tea">
+  <!-- Top nav -->
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="#top">Top</a>
+      <a href="#playlist">Playlist</a>
+      <a href="#lore">Lore</a>
+      <a href="#links">Links</a>
+      <button id="themeToggle" type="button" aria-pressed="true">Mode: Tea</button>
+    </div>
+  </nav>
 
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="lightshafts" aria-hidden="true"></div>
+  <div class="fog" aria-hidden="true"></div>
+  <div id="feather-field" aria-hidden="true"></div>
+
+  <!-- Magic rings for Type‑Moon vibe -->
   <svg class="sigil" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <radialGradient id="rg" cx="50%" cy="50%" r="50%">
@@ -114,8 +184,24 @@
     <circle cx="50" cy="50" r="46" fill="none" stroke="url(#rg)" stroke-width=".6" />
     <circle cx="50" cy="50" r="36" fill="none" stroke="rgba(215,195,120,.35)" stroke-width=".3" />
   </svg>
+  <svg class="rune-ring" viewBox="0 0 100 100" aria-hidden="true">
+    <defs>
+      <path id="circlePath" d="M50,50 m-34,0 a34,34 0 1,1 68,0 a34,34 0 1,1 -68,0"/>
+    </defs>
+    <text font-size="5" fill="rgba(215,195,120,.7)" letter-spacing="2" style="font-family: Cinzel, serif;">
+      <textPath href="#circlePath">VERA VIRTUS IN TENEBRIS FLORET • DIVINE CHAMBER • LATEUMN •</textPath>
+    </text>
+  </svg>
+  <svg class="rune-ring reverse" viewBox="0 0 100 100" aria-hidden="true">
+    <defs>
+      <path id="circlePath2" d="M50,50 m-24,0 a24,24 0 1,1 48,0 a24,24 0 1,1 -48,0"/>
+    </defs>
+    <text font-size="4.2" fill="rgba(120,232,255,.75)" letter-spacing="1.5" style="font-family: Cinzel, serif;">
+      <textPath href="#circlePath2">MEANING • STYLE • EROS • LOGOS • ANIMA • SISTER •</textPath>
+    </text>
+  </svg>
 
-  <header class="hero">
+  <header class="hero reveal">
     <span class="tag">Divine Chamber — Registry</span>
     <h1 class="logo">Lateumn</h1>
     <p class="subtitle">Nocturne carved in glass and gold. Elegance under witness; mischief under oath. Music for rooms that argue with the soul.</p>
@@ -123,23 +209,26 @@
       <a class="cta" href="https://open.spotify.com/artist/7v3HCNPQjKrbIQwZu96zGk?si=xKP8JBBKSrqbauBDk5zWMg" target="_blank" rel="noopener">Spotify</a>
       <a class="cta" href="https://www.youtube.com/@lateumn" target="_blank" rel="noopener">YouTube</a>
       <a class="cta" href="https://soundcloud.com/lateumn" target="_blank" rel="noopener">SoundCloud</a>
+      <a class="cta" href="#playlist">Enter</a>
     </div>
     <div class="scroll-cue">scroll</div>
   </header>
 
-  <section class="player" aria-label="Playlist">
+  <section id="playlist" class="player reveal" aria-label="Playlist">
     <div class="frame">
       <header>
         <span>Divine Chamber — Playlist</span>
-        <span>Lateumn</span>
+        <div class="frame-controls">
+          <button id="bgmToggle" class="chip" type="button" aria-pressed="false">BGM: Off</button>
+        </div>
       </header>
-      <iframe src="https://www.youtube.com/embed/videoseries?list=PLJc6b3n0yDh2jsW-vxtJh_0SZNqAqcdDB" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      <iframe id="ytPlayer" src="https://www.youtube.com/embed/videoseries?list=PLJc6b3n0yDh2jsW-vxtJh_0SZNqAqcdDB&enablejsapi=1" title="Lateumn Playlist" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"></div>
+  <div class="divider reveal" aria-hidden="true"></div>
 
-  <section class="lore" aria-label="Divine Chamber — Album Introduction">
+  <section id="lore" class="lore reveal" aria-label="Divine Chamber — Album Introduction">
     <div class="lore-inner">
       <h2>Divine Chamber — Album Introduction</h2>
       <p>A room that is neither fully in the world nor outside of it. There’s always dust in the corners. The furniture is mismatched: a velvet armchair here, a cracked writing desk there, a coatrack that has held a gun, a veil, and a crown. This is a bureau of gods, a stage for neurosis, a war room for souls.</p>
@@ -148,7 +237,7 @@
     </div>
   </section>
 
-  <footer>
+  <footer id="links" class="reveal">
     <div class="social" aria-label="social links">
       <a href="https://open.spotify.com/artist/7v3HCNPQjKrbIQwZu96zGk?si=xKP8JBBKSrqbauBDk5zWMg" target="_blank" aria-label="Spotify">Spotify</a>
       <a href="https://www.youtube.com/@lateumn" target="_blank" aria-label="YouTube">YouTube</a>
@@ -158,10 +247,86 @@
     <div style="margin-top:8px">© Lateumn — Divine Chamber</div>
   </footer>
 
+  <div class="to-top"><a href="#top">Top ↑</a></div>
+
   <script>
+    // Starfield
     (function(){
       const c = document.getElementById('stars');
       const ctx = c.getContext('2d');
-      let W, H, stars = [], COUNT = 200;
+      let W, H, stars = [], COUNT = 220;
       function resize(){ W = c.width = innerWidth; H = c.height = innerHeight; stars = Array.from({length: COUNT}, () => ({x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.6+0.25, a: Math.random()*6.283, v: Math.random()*0.012+0.003})); }
-      function draw(){ ctx.clearRect(0,0,W,H); for(const s of stars){ s.a += s.v; const tw = (Math.sin(s.a)+1)/2; const g = ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*2); g.addColorStop(0, `rgba(255,255,255,${0.85*tw})`); g.addColorStop(1, `rgba(255,255,255,0)`); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(s.x,s.y,s.r*2,0,Math.PI*2); ctx.fill
+      function draw(){ ctx.clearRect(0,0,W,H); for(const s of stars){ s.a += s.v; const tw = (Math.sin(s.a)+1)/2; const g = ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*2); g.addColorStop(0, `rgba(255,255,255,${0.85*tw})`); g.addColorStop(1, `rgba(255,255,255,0)`); ctx.fillStyle=g; ctx.beginPath(); ctx.arc(s.x,s.y,s.r*2,0,Math.PI*2); ctx.fill(); } requestAnimationFrame(draw); }
+      addEventListener('resize', resize); resize(); draw();
+    })();
+
+    // Parallax for fog & rings
+    (function(){
+      const fog = document.querySelector('.fog');
+      const sigil = document.querySelector('.sigil');
+      function parallax(e){
+        const x = (e.clientX / innerWidth - 0.5);
+        const y = (e.clientY / innerHeight - 0.5);
+        fog.style.transform = `translate(${x * -12}px, ${y * -12}px)`;
+        sigil.style.transform = `translate(calc(-50% + ${x * 8}px), calc(-50% + ${y * 8}px))`;
+      }
+      window.addEventListener('mousemove', parallax);
+    })();
+
+    // Reveal on scroll
+    (function(){
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+    })();
+
+    // YouTube Iframe API for BGM toggle
+    let ytPlayer, muted = true;
+    const onYouTubeIframeAPIReady = () => {
+      ytPlayer = new YT.Player('ytPlayer', { events: { 'onReady': onPlayerReady } });
+    };
+    const onPlayerReady = () => {
+      try { ytPlayer.mute(); } catch(_){}
+      document.getElementById('bgmToggle').addEventListener('click', ()=>{
+        if(!ytPlayer) return;
+        if(muted){ ytPlayer.unMute(); ytPlayer.playVideo && ytPlayer.playVideo(); muted=false; document.getElementById('bgmToggle').textContent='BGM: On'; }
+        else { ytPlayer.mute(); muted=true; document.getElementById('bgmToggle').textContent='BGM: Off'; }
+      });
+    };
+    // inject API
+    (function(){ const s=document.createElement('script'); s.src='https://www.youtube.com/iframe_api'; document.head.appendChild(s); })();
+    window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+
+    // Feather field (light particle feathers)
+    (function(){
+      const field = document.getElementById('feather-field');
+      const N = 12;
+      for(let i=0;i<N;i++){
+        const f = document.createElement('div');
+        f.className = 'feather';
+        const left = Math.random()*100;
+        const delay = (Math.random()*8).toFixed(2)+'s';
+        const dur = (14 + Math.random()*14).toFixed(2)+'s';
+        f.style.left = left+'vw';
+        f.style.top = (-10 + Math.random()*20)+'vh';
+        f.style.animation = `drift ${dur} linear ${delay} infinite`;
+        field.appendChild(f);
+      }
+    })();
+
+    // Theme toggle (Tea / Beer)
+    (function(){
+      const btn = document.getElementById('themeToggle');
+      let tea = true;
+      btn.addEventListener('click', ()=>{
+        tea = !tea;
+        document.body.classList.toggle('tea', tea);
+        document.body.classList.toggle('beer', !tea);
+        btn.textContent = tea ? 'Mode: Tea' : 'Mode: Beer';
+        btn.setAttribute('aria-pressed', tea ? 'true' : 'false');
+      });
+    })();
+  </script>
+</body>
+</html>
